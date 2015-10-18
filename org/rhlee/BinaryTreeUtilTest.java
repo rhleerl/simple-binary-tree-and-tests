@@ -20,4 +20,13 @@ public class BinaryTreeUtilTest {
 		assertSame(rightChild, bt.rootNode.rightNode);
 		assertSame(rightLeftChild, bt.rootNode.rightNode.leftNode);
 	}
+
+	@Test(expected=StackOverflowError.class)
+	public void should_cause_stack_overflow_from_deep_recursion() {
+		BinaryTree bt = new BinaryTree(new Node(Integer.MAX_VALUE / 2));
+
+		for(int i = 0; i < Integer.MAX_VALUE; i++) {
+			BinaryTreeUtil.addNodeRecursive(bt.rootNode, new Node(i));
+		}
+	}
 }
